@@ -3,7 +3,7 @@ import { assets, blogCategories } from "../../assets/assets";
 import Quill from "quill";
 import toast from "react-hot-toast";
 import { useAppContext } from "../../context/AppContext";
-import { parse } from "marked";
+import { parse, parser } from "marked";
 
 const AddBlog = () => {
   const { axios } = useAppContext();
@@ -29,7 +29,7 @@ const AddBlog = () => {
       });
 
       if (data.success) {
-        quillRef.current.root.innerHTML = data.content;
+        quillRef.current.root.innerHTML = parse(data.content);
       } else {
         toast.error(data.message);
       }
